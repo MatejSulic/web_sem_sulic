@@ -144,8 +144,40 @@ class AdminController extends Controller {
             
             $articleModel->updateStatus($id, $status);
             
-            header("Location: index.php?page=admin-assignments&msg=status_changed");
+            header("Location: index.php?page=admin-articles");
             exit;
         }
+    }
+
+    public function manageArticles() {
+        $this->checkAdmin();
+
+        $db = (new Database())->getConnection();
+        $articleModel = new ArticleModel($db);
+        $userModel = new UserModel($db);
+        $reviewModel = new ReviewModel($db);
+
+        // 1. Načteme VŠECHNY články (seřazené od nejnovějších)
+        $articles = $articleModel->getAll(); 
+        
+        // 2. Načteme seznam recenzentů (pro roletku)
+        $reviewers = $userModel->getReviewers();
+
+        // 3. Ke každému článku připojíme jeho recenzenty a spočítáme statistiky
+        foreach ($articles as $article) {
+            $article->reviews = $reviewModel->getReviewsByArticleId($article->id);
+            
+            // Spočítáme, kolik recenzí je hotových (má skóre > 0)
+            $finishedCount = 0;
+            foreach ($article->reviews as $r) {
+                if ($r->score_technical > 0) $finishedCount++;
+            }
+            $article->finished_reviews = $finishedCount;
+        }
+
+        $this->view('admin_articles_dashboard', [
+            'articles' => $articles, 
+            'reviewers' => $reviewers
+        ]);
     }
 }

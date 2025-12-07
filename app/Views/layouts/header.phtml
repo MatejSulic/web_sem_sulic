@@ -25,10 +25,17 @@
 
         <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle text-warning" href="#" data-bs-toggle="dropdown">Admin</a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="index.php?page=admin-users">Správa uživatelů</a></li>
-                    <li><a class="dropdown-item" href="index.php?page=admin-assignments">Přiřazování recenzí</a></li>
+                <a class="nav-link dropdown-toggle text-warning fw-bold" href="#" data-bs-toggle="dropdown">
+                    ADMIN PANEL
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark">
+                    <li><h6 class="dropdown-header">Uživatelé</h6></li>
+                    <li><a class="dropdown-item" href="index.php?page=admin-users">👤 Správa uživatelů</a></li>
+                    
+                    <li><hr class="dropdown-divider"></li>
+                    
+                    <li><h6 class="dropdown-header">Konference</h6></li>
+                    <li><a class="dropdown-item" href="index.php?page=admin-articles">📄 Správa článků & Recenze</a></li>
                 </ul>
             </li>
         <?php endif; ?>

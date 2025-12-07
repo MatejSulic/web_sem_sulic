@@ -67,9 +67,9 @@ switch ($page) {
         (new AdminController())->changeRole();
         break;
 
-    case 'admin-assignments':
+    case 'admin-articles':
         require_once 'app/Controllers/AdminController.php';
-        (new AdminController())->assignments();
+        (new AdminController())->manageArticles();
         break;
 
     case 'admin-assign':
@@ -96,6 +96,8 @@ switch ($page) {
         require_once 'app/Controllers/AdminController.php';
         (new AdminController())->changeStatus();
         break;
+
+        
     default:
         // Stránka neexistuje (404)
         http_response_code(404);

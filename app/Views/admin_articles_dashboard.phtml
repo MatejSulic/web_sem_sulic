@@ -1,0 +1,99 @@
+<div class="container-fluid mt-4">
+    <h2 class="mb-4">Správa článků a recenzního řízení</h2>
+
+    <?php if (isset($_GET['msg'])): ?>
+        <div class="alert alert-success alert-dismissible fade show">
+            Akce byla úspěšně provedena.
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    <?php endif; ?>
+
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th style="width: 5%">ID</th>
+                        <th style="width: 25%">Článek & Autor</th>
+                        <th style="width: 10%">Stav</th>
+                        <th style="width: 35%">Recenzenti (Přiřazeno / Hotovo)</th>
+                        <th style="width: 25%">Akce</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($articles as $article): ?>
+                    <tr>
+                        <td class="fw-bold text-center"><?= $article->id ?></td>
+                        
+                        <td>
+                            <strong class="d-block text-truncate" style="max-width: 250px;">
+                                <?= htmlspecialchars($article->title) ?>
+                            </strong>
+                            <small class="text-muted">Autor: <?= htmlspecialchars($article->author_name) ?></small>
+                            <br>
+                            <a href="uploads/<?= htmlspecialchars($article->filename) ?>" target="_blank" class="text-decoration-none small">
+                                📄 Zobrazit PDF
+                            </a>
+                        </td>
+
+                        <td>
+                            <?php if ($article->status == 'accepted'): ?>
+                                <span class="badge bg-success w-100 py-2">SCHVÁLENO</span>
+                            <?php elseif ($article->status == 'rejected'): ?>
+                                <span class="badge bg-danger w-100 py-2">ZAMÍTNUTO</span>
+                            <?php else: ?>
+                                <span class="badge bg-warning text-dark w-100 py-2">ČEKÁ NA ROZHODNUTÍ</span>
+                            <?php endif; ?>
+                        </td>
+
+                        <td>
+                            <div class="mb-2">
+                                <?php if (empty($article->reviews)): ?>
+                                    <span class="text-muted small"><i class="text-danger">⚠ Zatím nikdo nepřiřazen</i></span>
+                                <?php else: ?>
+                                    <?php foreach ($article->reviews as $r): ?>
+                                        <?php $isDone = $r->score_technical > 0; ?>
+                                        <span class="badge border <?= $isDone ? 'bg-success' : 'bg-light text-dark border-secondary' ?> me-1" title="<?= $isDone ? 'Ohodnoceno' : 'Čeká na hodnocení' ?>">
+                                            <?= htmlspecialchars($r->reviewer_name) ?>
+                                            <?= $isDone ? '✔' : '⏳' ?>
+                                        </span>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </div>
+
+                            <?php if ($article->status == 'pending'): ?>
+                                <form action="index.php?page=admin-assign" method="post" class="d-flex gap-1">
+                                    <input type="hidden" name="article_id" value="<?= $article->id ?>">
+                                    <select name="reviewer_id" class="form-select form-select-sm" required>
+                                        <option value="" disabled selected>+ Přidat recenzenta...</option>
+                                        <?php foreach ($reviewers as $rev): ?>
+                                            <option value="<?= $rev->id ?>"><?= htmlspecialchars($rev->username) ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <button type="submit" class="btn btn-sm btn-outline-secondary">OK</button>
+                                </form>
+                            <?php endif; ?>
+                        </td>
+
+                        <td>
+                            <div class="d-grid gap-2">
+                                <a href="index.php?page=admin-article-detail&id=<?= $article->id ?>" class="btn btn-primary btn-sm">
+                                    <?php if ($article->status == 'pending'): ?>
+                                        ⚖️ Detail & Rozhodnout
+                                    <?php else: ?>
+                                        🔍 Zobrazit detail
+                                    <?php endif; ?>
+                                </a>
+                            </div>
+                            
+                            <div class="text-center mt-1 small text-muted">
+                                Hotové recenze: <strong><?= $article->finished_reviews ?></strong> / <?= count($article->reviews) ?>
+                            </div>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
