@@ -31,9 +31,9 @@
                 <ul class="dropdown-menu dropdown-menu-dark">
                     <li><h6 class="dropdown-header">Uživatelé</h6></li>
                     <li><a class="dropdown-item" href="index.php?page=admin-users">👤 Správa uživatelů</a></li>
-                    
+
                     <li><hr class="dropdown-divider"></li>
-                    
+
                     <li><h6 class="dropdown-header">Konference</h6></li>
                     <li><a class="dropdown-item" href="index.php?page=admin-articles">📄 Správa článků & Recenze</a></li>
                 </ul>
@@ -50,7 +50,7 @@
       <span class="navbar-text">
         <?php if (isset($_SESSION['user_id'])): ?>
             <span class="text-white me-2">
-                Přihlášen: <strong><?= htmlspecialchars($_SESSION['username']) ?></strong> 
+                Přihlášen: <strong><?= htmlspecialchars($_SESSION['username']) ?></strong>
                 (<?= htmlspecialchars($_SESSION['role']) ?>)
             </span>
             <a href="index.php?page=logout" class="btn btn-sm btn-outline-danger">Odhlásit</a>
@@ -63,4 +63,4 @@
   </div>
 </nav>
 
-<div class="container"></div>
+<div class="container flex-grow-1">
