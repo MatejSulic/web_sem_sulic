@@ -42,11 +42,9 @@
         </div>
     <?php endif; ?>
 
-    <div class="card mt-4 border-warning">
+    <div class="card mt-4">
         <div class="card-body text-center">
-            <h4>Rozhodnutí o publikaci</h4>
-            <p>Změnou stavu na <strong>accepted</strong> bude článek veřejně viditelný.</p>
-            
+           
             <form action="index.php?page=admin-status" method="post" class="d-inline-block">
                 <input type="hidden" name="article_id" value="<?= $article->id ?>">
                 <button type="submit" name="status" value="accepted" class="btn btn-success btn-lg mx-2" onclick="return confirm('Opravdu SCHVÁLIT článek?')">Schválit</button>

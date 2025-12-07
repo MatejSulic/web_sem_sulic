@@ -90,7 +90,7 @@ class AdminController extends Controller {
 
             $reviewModel->assignReviewer($articleId, $reviewerId);
             
-            header("Location: index.php?page=admin-assignments&msg=assigned");
+            header("Location: index.php?page=admin-articles");
             exit;
         }
     }

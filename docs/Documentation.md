@@ -1,12 +1,5 @@
 # Konferenční systém – dokumentace
 
-## Základní údaje
-- **Autor:** Jméno Příjmení (doplňte před odevzdáním)
-- **E-mail:** student@example.com
-- **Datum:** 2025-01-01 (aktualizujte)
-- **Předmět:** KIV/WEB
-- **Název aplikace:** Konferenční systém
-- **URL:** `http://localhost/web_sem_sulic/index.php` (případně adresa na školním serveru)
 
 ## Zadání
 Webová aplikace pro konferenční systém. Nepřihlášený uživatel vidí publikované články a může se registrovat. Autoři mohou nahrávat a spravovat své příspěvky, recenzenti hodnotí přiřazené články a administrátoři spravují uživatele, přiřazují recenzenty a rozhodují o publikování.

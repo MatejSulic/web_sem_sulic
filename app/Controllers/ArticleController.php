@@ -68,7 +68,7 @@ class ArticleController extends Controller {
                         $model = new ArticleModel($db);
                         
                         if ($model->create($title, $abstract, $newFileName, $authorId)) {
-                            header("Location: index.php?page=articles"); // Přesměrování na seznam
+                            header("Location: index.php?page=my-articles");
                             exit;
                         } else {
                             $data['error'] = "Chyba při ukládání do DB.";

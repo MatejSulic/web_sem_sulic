@@ -24,20 +24,13 @@
         </li>
 
         <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle text-warning fw-bold" href="#" data-bs-toggle="dropdown">
-                    ADMIN PANEL
-                </a>
-                <ul class="dropdown-menu dropdown-menu-dark">
-                    <li><h6 class="dropdown-header">Uživatelé</h6></li>
-                    <li><a class="dropdown-item" href="index.php?page=admin-users">👤 Správa uživatelů</a></li>
-
-                    <li><hr class="dropdown-divider"></li>
-
-                    <li><h6 class="dropdown-header">Konference</h6></li>
-                    <li><a class="dropdown-item" href="index.php?page=admin-articles">📄 Správa článků & Recenze</a></li>
-                </ul>
+            <li class="nav-item">
+              <a class="nav-link" href="index.php?page=admin-users">Správa uživatelů </a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.php?page=admin-articles">Správa článků & Recenze</a>
+            </li>
+
         <?php endif; ?>
 
 
@@ -56,7 +49,7 @@
             <a href="index.php?page=logout" class="btn btn-sm btn-outline-danger">Odhlásit</a>
         <?php else: ?>
             <a href="index.php?page=login" class="btn btn-sm btn-outline-light">Přihlásit se</a>
-            <a href="index.php?page=register" class="btn btn-sm btn-light">Registrace</a>
+            <a href="index.php?page=register" class="btn btn-sm btn-outline-light">Registrace</a>
         <?php endif; ?>
       </span>
     </div>
