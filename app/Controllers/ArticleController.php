@@ -10,9 +10,21 @@ class ArticleController extends Controller {
         $db = (new Database())->getConnection();
         $articleModel = new ArticleModel($db);
         
-        $articles = $articleModel->getAll();
+        // LOGIKA VIDITELNOSTI:
+        // Pokud je uživatel ADMIN, vidí všechno.
+        // Ostatní vidí jen SCHVÁLENÉ (Published).
         
-        $this->view('articles_list', ['articles' => $articles]);
+        if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
+            // Admin vidí vše (včetně rejected a pending)
+            $articles = $articleModel->getAll();
+            $title = "Všechny články (Admin pohled)";
+        } else {
+            // Ostatní (Host, Autor, Recenzent) vidí jen accepted
+            $articles = $articleModel->getPublished();
+            $title = "Veřejné články";
+        }
+        
+        $this->view('articles_list', ['articles' => $articles, 'title' => $title]);
     }
 
     // Vytvoření článku

@@ -1,17 +1,24 @@
 <?php
-// Musíme načíst rodiče
 require_once 'Controller.php';
+require_once __DIR__ . '/../Core/Database.php';
+require_once __DIR__ . '/../Models/ArticleModel.php';
 
 class HomeController extends Controller {
     
     public function index() {
-        // Tady bychom normálně tahali data z databáze
+        $db = (new Database())->getConnection();
+        $articleModel = new ArticleModel($db);
+
+        // Zde je ta logika viditelnosti:
+        // Na domovské stránce chceme ukazovat jen schválené články všem.
+        // Admin má svůj speciální přehled v Admin sekci.
+        $articles = $articleModel->getPublished();
+
         $data = [
-            'welcome_message' => 'Vítejte v konferenčním systému'
+            'articles' => $articles,
+            'title' => 'Sborník konference'
         ];
 
-        // Zavoláme metodu view z rodiče, která to obalí headerem a footerem
         $this->view('home', $data);
     }
 }
-?>

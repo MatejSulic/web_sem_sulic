@@ -1,7 +1,38 @@
-<div class="p-5 mb-4 bg-light rounded-3">
-    <div class="container-fluid py-5">
-        <h1 class="display-5 fw-bold"><?= $welcome_message ?></h1>
-        <p class="col-md-8 fs-4">Toto je úvodní stránka semestrální práce.</p>
-        <button class="btn btn-primary btn-lg" type="button">Zjistit více</button>
-    </div>
+<div class="px-4 py-5 my-5 text-center bg-light rounded-3">
+    <h1 class="display-5 fw-bold">Sborník příspěvků</h1>
+    <p class="col-lg-6 mx-auto mb-4">
+        Vítejte na stránkách konference. Níže naleznete seznam všech přijatých a publikovaných prací.
+    </p>
+</div>
+
+<div class="container">
+    <h2 class="mb-4 pb-2 border-bottom">Publikované články</h2>
+
+    <?php if (empty($articles)): ?>
+        <div class="alert alert-info">Zatím nebyly publikovány žádné články.</div>
+    <?php else: ?>
+        <div class="row">
+            <?php foreach ($articles as $article): ?>
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                        <small class="text-muted">Autor: <strong><?= htmlspecialchars($article->author_name) ?></strong></small>
+                        <span class="badge bg-success">Publikováno</span>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title"><?= htmlspecialchars($article->title) ?></h5>
+                        <p class="card-text text-muted">
+                            <?= htmlspecialchars(substr($article->abstract, 0, 150)) ?>...
+                        </p>
+                    </div>
+                    <div class="card-footer bg-white border-top-0">
+                        <a href="uploads/<?= htmlspecialchars($article->filename) ?>" target="_blank" class="btn btn-outline-primary w-100">
+                            Stáhnout PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
 </div>

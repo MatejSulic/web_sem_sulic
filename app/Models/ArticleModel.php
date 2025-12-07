@@ -75,4 +75,16 @@ class ArticleModel {
         $stmt = $this->db->prepare("UPDATE articles SET status = :status WHERE id = :id");
         return $stmt->execute(['status' => $status, 'id' => $id]);
     }
+
+    
+    public function getPublished() {
+        $stmt = $this->db->query("
+            SELECT a.*, u.username as author_name 
+            FROM articles a
+            JOIN users u ON a.author_id = u.id
+            WHERE a.status = 'accepted'
+            ORDER BY a.created_at DESC
+        ");
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
 }
