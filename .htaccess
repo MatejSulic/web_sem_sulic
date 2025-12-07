@@ -1,0 +1,12 @@
+AddDefaultCharset OFF
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Pokud soubor existuje (obrázky, css), nechej ho být
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    
+    # Vše ostatní pošli na index.php s parametrem ?page=...
+    RewriteRule ^(.*)$ index.php?page=$1 [L,QSA]
+</IfModule>
