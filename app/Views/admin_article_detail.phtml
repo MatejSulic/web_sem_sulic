@@ -1,0 +1,57 @@
+<div class="container mt-4">
+    <a href="index.php?page=admin-assignments" class="btn btn-outline-secondary mb-3">&larr; Zpět na seznam</a>
+
+    <div class="card mb-4">
+        <div class="card-header bg-dark text-white d-flex justify-content-between">
+            <h3 class="card-title mb-0"><?= htmlspecialchars($article->title) ?></h3>
+            <span class="badge bg-light text-dark"><?= $article->status ?></span>
+        </div>
+        <div class="card-body">
+            <p class="lead"><?= nl2br(htmlspecialchars($article->abstract)) ?></p>
+            <a href="uploads/<?= htmlspecialchars($article->filename) ?>" target="_blank" class="btn btn-primary">Zobrazit PDF</a>
+        </div>
+    </div>
+
+    <h3>Hodnocení recenzentů</h3>
+    <?php if (empty($reviews)): ?>
+        <p class="text-muted">Zatím žádné recenze.</p>
+    <?php else: ?>
+        <div class="alert alert-info">
+            <strong>Průměrné skóre: <?= number_format($average, 1) ?> / 10</strong>
+        </div>
+        
+        <div class="row">
+            <?php foreach ($reviews as $r): ?>
+            <div class="col-md-6 mb-3">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <strong>Recenzent: <?= htmlspecialchars($r->reviewer_name) ?></strong>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            <li>Technická: <strong><?= $r->score_technical ?></strong>/10</li>
+                            <li>Obsahová: <strong><?= $r->score_content ?></strong>/10</li>
+                            <li>Jazyková: <strong><?= $r->score_language ?></strong>/10</li>
+                        </ul>
+                        <hr>
+                        <p class="card-text"><em>"<?= htmlspecialchars($r->comment) ?>"</em></p>
+                    </div>
+                </div>
+            </div>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
+
+    <div class="card mt-4 border-warning">
+        <div class="card-body text-center">
+            <h4>Rozhodnutí o publikaci</h4>
+            <p>Změnou stavu na <strong>accepted</strong> bude článek veřejně viditelný.</p>
+            
+            <form action="index.php?page=admin-status" method="post" class="d-inline-block">
+                <input type="hidden" name="article_id" value="<?= $article->id ?>">
+                <button type="submit" name="status" value="accepted" class="btn btn-success btn-lg mx-2" onclick="return confirm('Opravdu SCHVÁLIT článek?')">Schválit (Accept)</button>
+                <button type="submit" name="status" value="rejected" class="btn btn-danger btn-lg mx-2" onclick="return confirm('Opravdu ZAMÍTNOUT článek?')">Zamítnout (Reject)</button>
+            </form>
+        </div>
+    </div>
+</div>

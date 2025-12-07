@@ -1,0 +1,33 @@
+<div class="container mt-4">
+    <h2>Hodnocení příspěvku</h2>
+    
+    <div class="card">
+        <div class="card-body">
+            <form action="index.php?page=review-edit&id=<?= $review->id ?>" method="post">
+                
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label class="form-label">Technická stránka (1-10)</label>
+                        <input type="number" name="score_technical" class="form-control" min="1" max="10" value="<?= $review->score_technical ?>" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Obsahová kvalita (1-10)</label>
+                        <input type="number" name="score_content" class="form-control" min="1" max="10" value="<?= $review->score_content ?>" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Jazyková úroveň (1-10)</label>
+                        <input type="number" name="score_language" class="form-control" min="1" max="10" value="<?= $review->score_language ?>" required>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Slovní hodnocení</label>
+                    <textarea name="comment" class="form-control" rows="5" required><?= htmlspecialchars($review->comment) ?></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Uložit hodnocení</button>
+                <a href="index.php?page=reviews" class="btn btn-secondary">Zpět</a>
+            </form>
+        </div>
+    </div>
+</div>

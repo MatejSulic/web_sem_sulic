@@ -1,0 +1,56 @@
+<div class="container mt-4">
+    <h2>Přiřazování recenzí</h2>
+
+    <?php if (isset($_GET['msg']) && $_GET['msg'] == 'assigned'): ?>
+        <div class="alert alert-success">Recenzent byl přiřazen.</div>
+    <?php endif; ?>
+
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Článek</th>
+                <th>Autor</th>
+                <th>Aktuální recenzenti</th>
+                <th>Přiřadit nového</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($articles as $article): ?>
+            <tr>
+                <td>
+                    <a href="index.php?page=admin-article-detail&id=<?= $article->id ?>">
+                        <?= htmlspecialchars($article->title) ?>
+                    </a>
+                </td>
+                <td><?= htmlspecialchars($article->author_name) ?></td>
+                <td>
+                    <?php if (empty($article->assigned_reviewers)): ?>
+                        <span class="text-muted text-small">Nikdo</span>
+                    <?php else: ?>
+                        <?php foreach ($article->assigned_reviewers as $r): ?>
+                            <span class="badge bg-info text-dark"><?= htmlspecialchars($r->username) ?></span>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </td>
+                <td>
+                    <?php if ($article->status == 'pending'): ?>
+                        <form action="index.php?page=admin-assign" method="post" class="d-flex gap-2">
+                            <input type="hidden" name="article_id" value="<?= $article->id ?>">
+                            
+                            <select name="reviewer_id" class="form-select form-select-sm" style="width: 150px;">
+                                <?php foreach ($reviewers as $rev): ?>
+                                    <option value="<?= $rev->id ?>"><?= htmlspecialchars($rev->username) ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            
+                            <button type="submit" class="btn btn-sm btn-success">+</button>
+                        </form>
+                    <?php else: ?>
+                        <span class="text-muted">Uzavřeno</span>
+                    <?php endif; ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>

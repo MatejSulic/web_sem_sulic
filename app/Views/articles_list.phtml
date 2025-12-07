@@ -1,0 +1,28 @@
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Seznam příspěvků</h2>
+        <?php if (isset($_SESSION['user_id'])): ?>
+            <a href="index.php?page=article-create" class="btn btn-success">Nový příspěvek</a>
+        <?php endif; ?>
+    </div>
+
+    <div class="list-group">
+        <?php foreach ($articles as $article): ?>
+            <a href="#" class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1"><?= htmlspecialchars($article->title) ?></h5>
+                    <small>Autor: <?= htmlspecialchars($article->author_name) ?></small>
+                </div>
+                <p class="mb-1"><?= htmlspecialchars(substr($article->abstract, 0, 150)) ?>...</p>
+                <small class="text-muted">Status: <?= htmlspecialchars($article->status) ?></small>
+                
+                <div class="mt-2">
+                    <span class="badge bg-secondary">PDF</span> 
+                    <object data="uploads/<?= htmlspecialchars($article->filename) ?>" type="application/pdf" width="0" height="0">
+                        <a href="uploads/<?= htmlspecialchars($article->filename) ?>" target="_blank">Stáhnout PDF</a>
+                    </object>
+                </div>
+            </a>
+        <?php endforeach; ?>
+    </div>
+</div>

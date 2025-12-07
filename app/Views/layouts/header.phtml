@@ -19,9 +19,41 @@
         <li class="nav-item">
           <a class="nav-link" href="index.php?page=home">Domů</a>
         </li>
-        </ul>
+        <li class="nav-item">
+          <a class="nav-link" href="index.php?page=articles">Příspěvky</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="index.php?page=my-articles">Moje články</a>
+        </li>
+
+        <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-warning" href="#" data-bs-toggle="dropdown">Admin</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="index.php?page=admin-users">Správa uživatelů</a></li>
+                    <li><a class="dropdown-item" href="index.php?page=admin-assignments">Přiřazování recenzí</a></li>
+                </ul>
+            </li>
+        <?php endif; ?>
+
+
+        <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'reviewer'): ?>
+            <li class="nav-item">
+                <a class="nav-link" href="index.php?page=reviews">Moje recenze</a>
+            </li>
+        <?php endif; ?>
+      </ul>
       <span class="navbar-text">
-        <a href="index.php?page=login" class="btn btn-sm btn-outline-light">Přihlásit se</a>
+        <?php if (isset($_SESSION['user_id'])): ?>
+            <span class="text-white me-2">
+                Přihlášen: <strong><?= htmlspecialchars($_SESSION['username']) ?></strong> 
+                (<?= htmlspecialchars($_SESSION['role']) ?>)
+            </span>
+            <a href="index.php?page=logout" class="btn btn-sm btn-outline-danger">Odhlásit</a>
+        <?php else: ?>
+            <a href="index.php?page=login" class="btn btn-sm btn-outline-light">Přihlásit se</a>
+            <a href="index.php?page=register" class="btn btn-sm btn-light">Registrace</a>
+        <?php endif; ?>
       </span>
     </div>
   </div>

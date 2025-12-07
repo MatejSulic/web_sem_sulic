@@ -15,12 +15,87 @@ switch ($page) {
         $controller = new HomeController();
         $controller->index();
         break;
+    
 
-    case 'login':
-        // Tady později přidáme AuthController
-        echo "Tady bude přihlašování";
+    case 'register':
+        require_once 'app/Controllers/AuthController.php';
+        (new AuthController())->register();
         break;
 
+    case 'login':
+        require_once 'app/Controllers/AuthController.php';
+        (new AuthController())->login();
+        break;
+
+    case 'logout':
+        require_once 'app/Controllers/AuthController.php';
+        (new AuthController())->logout();
+        break;
+
+    case 'articles':
+        require_once 'app/Controllers/ArticleController.php';
+        (new ArticleController())->index();
+        break;
+
+    case 'article-create':
+        require_once 'app/Controllers/ArticleController.php';
+        (new ArticleController())->create();
+        break;
+
+    case 'my-articles':
+        require_once 'app/Controllers/ArticleController.php';
+        (new ArticleController())->myArticles();
+        break;
+
+    case 'article-delete':
+        require_once 'app/Controllers/ArticleController.php';
+        (new ArticleController())->delete();
+        break;
+
+    case 'article-edit':
+        require_once 'app/Controllers/ArticleController.php';
+        (new ArticleController())->edit();
+        break;
+
+    case 'admin-users':
+        require_once 'app/Controllers/AdminController.php';
+        (new AdminController())->users();
+        break;
+
+    case 'admin-change-role':
+        require_once 'app/Controllers/AdminController.php';
+        (new AdminController())->changeRole();
+        break;
+
+    case 'admin-assignments':
+        require_once 'app/Controllers/AdminController.php';
+        (new AdminController())->assignments();
+        break;
+
+    case 'admin-assign':
+        require_once 'app/Controllers/AdminController.php';
+        (new AdminController())->assignReviewer();
+        break;
+
+    case 'reviews':
+        require_once 'app/Controllers/ReviewController.php';
+        (new ReviewController())->index();
+        break;
+
+    case 'review-edit':
+        require_once 'app/Controllers/ReviewController.php';
+        (new ReviewController())->edit();
+        break;
+
+    case 'admin-article-detail':
+        require_once 'app/Controllers/AdminController.php';
+        (new AdminController())->articleDetail();
+        break;
+
+    case 'admin-status':
+        require_once 'app/Controllers/AdminController.php';
+        (new AdminController())->changeStatus();
+        break;
     default:
         // Stránka neexistuje (404)
         http_response_code(404);

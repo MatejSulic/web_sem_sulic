@@ -1,0 +1,44 @@
+<div class="container mt-4">
+    <h2>Moje příspěvky</h2>
+    
+    <?php if (empty($articles)): ?>
+        <p>Zatím jste nic nevložil.</p>
+    <?php else: ?>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Název</th>
+                    <th>Stav</th>
+                    <th>Akce</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($articles as $article): ?>
+                <tr>
+                    <td><?= htmlspecialchars($article->title) ?></td>
+                    <td>
+                        <?php 
+                        $badgeClass = match($article->status) {
+                            'accepted' => 'bg-success',
+                            'rejected' => 'bg-danger',
+                            default => 'bg-warning text-dark'
+                        };
+                        ?>
+                        <span class="badge <?= $badgeClass ?>"><?= $article->status ?></span>
+                    </td>
+                    <td>
+                        <?php if ($article->status == 'pending'): ?>
+                            <a href="index.php?page=article-edit&id=<?= $article->id ?>" class="btn btn-sm btn-primary">Upravit</a>
+                            <a href="index.php?page=article-delete&id=<?= $article->id ?>" class="btn btn-sm btn-danger" onclick="return confirm('Opravdu smazat?')">Smazat</a>
+                        <?php else: ?>
+                            <small class="text-muted">Nelze měnit</small>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php endif; ?>
+    
+    <a href="index.php?page=article-create" class="btn btn-success mt-3">Nový příspěvek</a>
+</div>

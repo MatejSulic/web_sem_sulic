@@ -1,0 +1,26 @@
+<div class="container mt-4">
+    <h2>Nový příspěvek</h2>
+    
+    <?php if (isset($error)): ?>
+        <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
+    <?php endif; ?>
+
+    <form action="index.php?page=article-create" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label class="form-label">Název příspěvku</label>
+            <input type="text" class="form-control" name="title" required>
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Abstrakt</label>
+            <textarea class="form-control" name="abstract" rows="5" required></textarea>
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">PDF soubor článku</label>
+            <input type="file" class="form-control" name="pdf_file" accept=".pdf" required>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Odeslat příspěvek</button>
+    </form>
+</div>
