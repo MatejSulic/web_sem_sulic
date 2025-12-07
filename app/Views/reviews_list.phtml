@@ -5,38 +5,46 @@
         <div class="alert alert-success">Hodnocení uloženo.</div>
     <?php endif; ?>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Článek</th>
-                <th>PDF</th>
-                <th>Stav hodnocení</th>
-                <th>Akce</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($reviews as $r): ?>
-            <tr>
-                <td><?= htmlspecialchars($r->title) ?></td>
-                <td>
-                    <a href="uploads/<?= htmlspecialchars($r->filename) ?>" target="_blank" class="btn btn-sm btn-outline-primary">Stáhnout PDF</a>
-                </td>
-                <td>
-                    <?php if ($r->score_technical > 0): ?>
-                        <span class="badge bg-success">Ohodnoceno</span>
-                    <?php else: ?>
-                        <span class="badge bg-warning text-dark">Čeká na hodnocení</span>
-                    <?php endif; ?>
-                </td>
-                <td>
-                    <?php if ($r->article_status == 'pending'): ?>
-                        <a href="index.php?page=review-edit&id=<?= $r->id ?>" class="btn btn-sm btn-primary">Hodnotit</a>
-                    <?php else: ?>
-                        <span class="text-muted">Uzavřeno</span>
-                    <?php endif; ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+    <div class="row g-3">
+
+        <?php foreach ($reviews as $r): ?>
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body d-flex flex-column">
+
+                        <h5 class="card-title mb-2">
+                            <?= htmlspecialchars($r->title) ?>
+                        </h5>
+
+                        <div class="mb-3">
+                            <?php if ($r->score_technical > 0): ?>
+                                <span class="badge bg-success">Ohodnoceno</span>
+                            <?php else: ?>
+                                <span class="badge bg-warning text-dark">Čeká na hodnocení</span>
+                            <?php endif; ?>
+                        </div>
+
+                        <div class="mt-auto d-grid gap-2">
+                            <a href="uploads/<?= htmlspecialchars($r->filename) ?>" 
+                               target="_blank" 
+                               class="btn btn-outline-primary btn-sm">
+                                Stáhnout PDF
+                            </a>
+
+                            <?php if ($r->article_status == 'pending'): ?>
+                                <a href="index.php?page=review-edit&id=<?= $r->id ?>" 
+                                   class="btn btn-primary btn-sm">
+                                    Hodnotit
+                                </a>
+                            <?php else: ?>
+                                <span class="text-muted text-center">Uzavřeno</span>
+                            <?php endif; ?>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+
+    </div>
 </div>

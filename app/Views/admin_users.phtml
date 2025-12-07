@@ -4,44 +4,58 @@
     <?php if (isset($msg) && $msg == 'updated'): ?>
         <div class="alert alert-success">Role byla úspěšně změněna.</div>
     <?php endif; ?>
+
     <?php if (isset($msg) && $msg == 'error_self'): ?>
         <div class="alert alert-danger">Nemůžete změnit roli sám sobě!</div>
     <?php endif; ?>
 
-    <table class="table table-bordered table-hover">
-        <thead class="table-dark">
-            <tr>
-                <th>ID</th>
-                <th>Uživatelské jméno</th>
-                <th>Email</th>
-                <th>Aktuální role</th>
-                <th>Změnit roli</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($users as $u): ?>
-            <tr>
-                <td><?= $u->id ?></td>
-                <td><?= htmlspecialchars($u->username) ?></td>
-                <td><?= htmlspecialchars($u->email) ?></td>
-                <td>
-                    <span class="badge bg-secondary"><?= $u->role ?></span>
-                </td>
-                <td>
-                    <form action="index.php?page=admin-change-role" method="post" class="d-flex gap-2">
-                        <input type="hidden" name="user_id" value="<?= $u->id ?>">
-                        
-                        <select name="new_role" class="form-select form-select-sm" style="width: auto;">
-                            <option value="author" <?= $u->role == 'author' ? 'selected' : '' ?>>Author</option>
-                            <option value="reviewer" <?= $u->role == 'reviewer' ? 'selected' : '' ?>>Reviewer</option>
-                            <option value="admin" <?= $u->role == 'admin' ? 'selected' : '' ?>>Admin</option>
-                        </select>
-                        
-                        <button type="submit" class="btn btn-sm btn-primary">Uložit</button>
-                    </form>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+    <div class="row g-3">
+
+        <?php foreach ($users as $u): ?>
+            <div class="col-12 col-md-6 col-lg-4">
+
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body d-flex flex-column">
+
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h5 class="card-title mb-0">
+                                <?= htmlspecialchars($u->username) ?>
+                            </h5>
+                            <span class="badge bg-dark">ID <?= $u->id ?></span>
+                        </div>
+
+                        <p class="text-muted mb-2">
+                            <?= htmlspecialchars($u->email) ?>
+                        </p>
+
+                        <div class="mb-3">
+                            <strong>Aktuální role:</strong>
+                            <span class="badge bg-secondary ms-2">
+                                <?= $u->role ?>
+                            </span>
+                        </div>
+
+                        <form action="index.php?page=admin-change-role" method="post" class="mt-auto">
+                            <input type="hidden" name="user_id" value="<?= $u->id ?>">
+
+                            <div class="d-flex gap-2 align-items-center">
+                                <select name="new_role" class="form-select form-select-sm">
+                                    <option value="author" <?= $u->role == 'author' ? 'selected' : '' ?>>Author</option>
+                                    <option value="reviewer" <?= $u->role == 'reviewer' ? 'selected' : '' ?>>Reviewer</option>
+                                    <option value="admin" <?= $u->role == 'admin' ? 'selected' : '' ?>>Admin</option>
+                                </select>
+
+                                <button type="submit" class="btn btn-sm btn-primary">
+                                    Uložit
+                                </button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        <?php endforeach; ?>
+
+    </div>
 </div>
