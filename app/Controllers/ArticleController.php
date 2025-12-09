@@ -51,7 +51,7 @@ class ArticleController extends Controller {
                 $fileName = $_FILES['pdf_file']['name'];
                 $fileType = $_FILES['pdf_file']['type'];
                 
-                // Jednoduchá validace koncovky (v reálu kontroluj i MIME type)
+                // Jednoduchá validace koncovky
                 $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
                 
                 if ($fileExtension === 'pdf') {
@@ -86,7 +86,6 @@ class ArticleController extends Controller {
 
         $this->view('article_create', $data);
     }
-    // ... existující kód ...
 
     // Zobrazí jen články přihlášeného uživatele
     public function myArticles() {
@@ -116,10 +115,7 @@ class ArticleController extends Controller {
         $model = new ArticleModel($db);
         $article = $model->getById($id);
 
-        // BEZPEČNOSTNÍ KONTROLA:
-        // 1. Existuje článek?
-        // 2. Je přihlášený uživatel autorem? (nebo je to admin)
-        // 3. Je článek ve stavu 'pending'? (Schválené mazat nelze)
+        // BEZPEČNOSTNÍ KONTROLA
         if ($article && $article->author_id == $_SESSION['user_id'] && $article->status == 'pending') {
             
             // 1. Smazat soubor z disku (úklid)

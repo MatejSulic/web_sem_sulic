@@ -3,7 +3,7 @@ class Database {
     public function getConnection() {
         // Nastavení pro XAMPP/Linux
         $host = 'localhost';
-        $db   = 'conference_db'; // Zkontroluj název DB!
+        $db   = 'conference_db'; 
         $user = 'root';
         $pass = ''; 
         $charset = 'utf8mb4';

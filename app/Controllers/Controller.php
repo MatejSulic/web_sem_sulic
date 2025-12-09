@@ -1,5 +1,7 @@
 <?php
 
+// Základní kontroler, který poskytuje společné funkce pro všechny ostatní kontrolery   
+
 class Controller {
     public function view($viewName, $data = []) {
       

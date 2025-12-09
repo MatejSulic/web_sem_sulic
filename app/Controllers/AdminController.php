@@ -8,6 +8,7 @@ require_once __DIR__ . '/../Models/ReviewModel.php';
 class AdminController extends Controller {
 
     // Pomocná metoda pro kontrolu práv
+    // pouzivam ji radeji v kazde metode
     private function checkAdmin() {
         if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
             die("Přístup odepřen. Nejste administrátor.");
@@ -16,7 +17,7 @@ class AdminController extends Controller {
 
     // Výpis uživatelů
     public function users() {
-        $this->checkAdmin(); // Bezpečnostní závora
+        $this->checkAdmin();
 
         $db = (new Database())->getConnection();
         $userModel = new UserModel($db);

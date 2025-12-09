@@ -9,9 +9,7 @@ class HomeController extends Controller {
         $db = (new Database())->getConnection();
         $articleModel = new ArticleModel($db);
 
-        // Zde je ta logika viditelnosti:
         // Na domovské stránce chceme ukazovat jen schválené články všem.
-        // Admin má svůj speciální přehled v Admin sekci.
         $articles = $articleModel->getPublished();
 
         $data = [
