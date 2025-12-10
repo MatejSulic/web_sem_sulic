@@ -6,7 +6,7 @@ require_once __DIR__ . '/../Models/UserModel.php';
 class AuthController extends Controller {
 
     public function register() {
-        $data = []; // Data pro pohled (chybové hlášky atd.)
+        $data = [];
 
         // Pokud uživatel odeslal formulář (metoda POST)
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -59,12 +59,10 @@ class AuthController extends Controller {
             // 2. Ověříme, zda existuje a zda sedí heslo (pomocí password_verify)
             if ($user && password_verify($password, $user['password'])) {
                 
-                // 3. BINGO! Uložíme údaje do Session
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['username'] = $user['username'];
-                $_SESSION['role'] = $user['role']; // Důležité pro práva (admin/author)
+                $_SESSION['role'] = $user['role'];
 
-                // Přesměrujeme na úvod
                 header("Location: index.php?page=home");
                 exit;
             } else {
@@ -76,9 +74,7 @@ class AuthController extends Controller {
     }
 
     public function logout() {
-        // Zrušíme session
         session_destroy();
-        // Přesměrujeme na login
         header("Location: index.php?page=login");
         exit;
     }

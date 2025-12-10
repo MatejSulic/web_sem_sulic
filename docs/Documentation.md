@@ -59,15 +59,3 @@ Aplikace používá jednoduché MVC:
 - Recenzní formulář se třemi kritérii hodnocení a komentářem.
 - Veřejný seznam publikovaných článků ke stažení.
 
-## Splnění povinných požadavků (stav k revizi)
-- **Technologie:** HTML5, CSS (Bootstrap), PHP, MySQL, PDO – splněno.
-- **MVC + OOP:** controllery, modely a views oddělené – splněno.
-- **Jeden vstupní bod:** `index.php` – splněno.
-- **PDO + ochrana proti SQLi:** připravené dotazy – splněno.
-- **Hashování hesel:** bcrypt – splněno.
-- **XSS ochrana:** šablony escapují dynamická data – částečně, je vhodné zkontrolovat všechny výstupy.
-- **Upload souborů:** PDF upload – splněno.
-- **Responzivita:** Bootstrap 5 – splněno.
-- **Role:** admin, reviewer, author – splněno (3 role).
-- **Dokumentace + DB skripty:** tento soubor + `sql/install.sql` – doplněno.
-- **Bez frameworku:** čisté PHP – splněno.
